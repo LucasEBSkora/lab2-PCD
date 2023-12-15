@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="carnet">
+    <output-path>$PROJECT_DIR$/out/artifacts/carnet</output-path>
+    <root id="archive" name="carnet.jar">
+      <element id="module-output" name="lab2-e2455u.main" />
+      <element id="directory" name="META-INF">
+        <element id="dir-copy" path="$PROJECT_DIR$/META-INF" />
+      </element>
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources" />
+    </root>
+  </artifact>
+</component>
