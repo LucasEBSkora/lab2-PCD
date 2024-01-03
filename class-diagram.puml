@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Main --|> Application
+class Main {
+    + Main()
+    + Stage getPrimaryStage()
+    + void start(Stage primaryStage)
+    + {static} void main(String[] args)
+    + Scene makeStartScreen()
+    + Scene makeCreateScreen()
+    + push(Scene s)
+    + show()
+}
+Main "1" --> "0..*" Scene
+Main o--> Stage
+
+class CreateNotebookScreen {
+}
+CreateNotebookScreen --> Main
+
+class StartScreen {
+    # ChangeToCreateScreen()
+    # showPickBook()
+}
+StartScreen --> Main
+@enduml
