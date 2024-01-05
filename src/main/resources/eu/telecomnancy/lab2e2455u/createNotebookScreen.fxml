@@ -1,29 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Label text="Label" />
-            <TextField />
-         </children>
-      </HBox>
-      <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Label text="Label" />
-            <TextField />
-         </children>
-      </HBox>
-      <HBox layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Label text="Label" />
-            <DatePicker />
-            <Label layoutX="10.0" layoutY="10.0" text="Label" />
-            <DatePicker layoutX="43.0" layoutY="10.0" />
-         </children>
-      </HBox>
+      <fx:include fx:id="titleAndPath" source="TitleAndPathComponent.fxml" />
+      <fx:include fx:id="dates" source="DatesComponent.fxml" />
+      <fx:include fx:id="creatorAndParticipants" source="CreatorAndParticipantsComponent.fxml" />
+      <fx:include fx:id="buttons" source="CreateScreenButtons.fxml" />
    </children>
 </VBox>

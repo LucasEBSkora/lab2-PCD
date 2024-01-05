@@ -1,7 +1,7 @@
 package eu.telecomnancy.lab2e2455u;
 
-import eu.telecomnancy.lab2e2455u.controller.CreateNotebookScreen;
-import eu.telecomnancy.lab2e2455u.controller.StartScreen;
+import eu.telecomnancy.lab2e2455u.view.*;
+import eu.telecomnancy.lab2e2455u.model.Carnet;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -44,10 +44,19 @@ public class Main extends Application {
     }
 
     public Scene makeCreateScreen() throws IOException {
+        Carnet c = new Carnet();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("createNotebookScreen.fxml"));
-        fxmlLoader.setControllerFactory((ic) -> new CreateNotebookScreen(this));
+        fxmlLoader.setControllerFactory((ic) -> {
+            if (ic.equals(CreateScreenButtons.class)) return new CreateScreenButtons(this, c);
+            else if (ic.equals(CreatorAndParticipantsComponent.class)) return new CreatorAndParticipantsComponent(this, c);
+            else if (ic.equals(DatesComponent.class)) return new DatesComponent(this, c);
+            else if (ic.equals(TitleAndPathComponent.class)) return new TitleAndPathComponent(this, c);
+            else return null;
+        });
         return new Scene(fxmlLoader.load());
     }
+
+    public Scene pop() {return scenes.pop();}
 
     public void push(Scene s) {
         scenes.push(s);
@@ -56,5 +65,9 @@ public class Main extends Application {
     public void show() {
         primaryStage.setScene(scenes.peek());
         primaryStage.show();
+    }
+
+    public Scene makeGlobalScreen(Carnet carnet) {
+        return null;
     }
 }

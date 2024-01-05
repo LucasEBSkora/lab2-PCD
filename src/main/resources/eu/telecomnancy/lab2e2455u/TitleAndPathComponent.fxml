@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.telecomnancy.lab2e2455u.view.TitleAndPathComponent">
+    <HBox>
+        <children>
+            <Label text="Nom du carnet: " />
+            <TextField fx:id="nameField" />
+        </children>
+    </HBox>
+    <HBox>
+        <children>
+            <Label text="Chemin du fichier" />
+            <TextField fx:id="pathField" />
+            <Label layoutX="10.0" layoutY="10.0" text=".json.cdv" />
+            <Button mnemonicParsing="false" onAction="#choosePathButton" text="Choisir Chemin" />
+        </children>
+    </HBox>
+   <Label fx:id="errorLabel" opacity="0.0" text="Chemin invalide!" />
+
+
+</VBox>

@@ -9,19 +9,96 @@ class Main {
     + {static} void main(String[] args)
     + Scene makeStartScreen()
     + Scene makeCreateScreen()
+    + Scene makeGlobalScreen()
+    + Scene pop()
     + push(Scene s)
     + show()
 }
 Main "1" --> "0..*" Scene
 Main o--> Stage
 
-class CreateNotebookScreen {
-}
-CreateNotebookScreen --> Main
+package model {
+    class Carnet {
+        - String Name
+        - String author
+        - ObservableList<String> participants
+        - LocalDate start
+        - LocalDate end
+        - Path filePath
+        + String getName()
+        + setName(String name)
+        + String getAuthor()
+        + setAuthor(String author)
+        + LocalDate getStart()
+        + setStart(LocalDate start)
+        + LocalDate getEnd()
+        + setEnd(LocalDate end)
+        + Path getFilePath()
+        + setFilePath(Path filePath)
+        + addParticipant(String participant)
+        + removeParticipant(String participant)
+        + ObservableList<String> getParticipants()
+        + String problem()
+        + String asJSON()
+        + save()
+    }
 
-class StartScreen {
-    # ChangeToCreateScreen()
-    # showPickBook()
 }
-StartScreen --> Main
+view.DatesComponent ..> utils.DDMMYYYYConverter
+model.Carnet ..> utils.LocalDateAdapter
+package utils {
+    class DDMMYYYYConverter {
+        - DateTimeFormatter dateFormatter
+        + String toString(LocalDate date)
+        + LocalDate fromString(String string)
+    }
+    LocalDateAdapter o--> DDMMYYYYConverter
+    class LocalDateAdapter {
+                + JsonElement serialize(LocalDate localDate, Type type, JsonSerializationContext jsonSerializationContext)
+                + LocalDate deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext)
+    }
+
+}
+
+package view {
+    class CreateScreenButtons {
+        - saveNotebook()
+    }
+    CreateScreenButtons --> Main
+    CreateScreenButtons --> Carnet
+
+    class CreatorAndParticipantsComponent {
+        - initialize()
+        - addMember()
+        - deleteMember()
+    }
+    CreatorAndParticipantsComponent --> Main
+    CreatorAndParticipantsComponent --> Carnet
+
+    class DatesComponent {
+        - initialize()
+        - updateStartDate()
+        - updateEndDate()
+    }
+    DatesComponent --> Main
+    DatesComponent --> Carnet
+
+    class TitleAndPathComponent {
+        + initialize()
+        # choosePathButton()
+        - formatPath(String path)
+        - boolean setFilePath(String pathStr)
+    }
+    TitleAndPathComponent --> Main
+    TitleAndPathComponent --> Carnet
+
+    class StartScreen {
+        # ChangeToCreateScreen()
+        # showPickBook()
+    }
+    StartScreen --> Main
+
+    class GlobalScreen
+}
+
 @enduml

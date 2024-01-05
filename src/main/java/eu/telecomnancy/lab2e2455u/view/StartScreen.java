@@ -1,4 +1,4 @@
-package eu.telecomnancy.lab2e2455u.controller;
+package eu.telecomnancy.lab2e2455u.view;
 
 import eu.telecomnancy.lab2e2455u.Main;
 import javafx.fxml.FXML;
