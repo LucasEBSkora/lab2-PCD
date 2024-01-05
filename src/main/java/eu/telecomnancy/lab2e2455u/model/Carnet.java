@@ -1,27 +1,24 @@
 package eu.telecomnancy.lab2e2455u.model;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
-import eu.telecomnancy.lab2e2455u.utils.DDMMYYYYConverter;
 import eu.telecomnancy.lab2e2455u.utils.LocalDateAdapter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class Carnet {
+    @Expose
+    private final ObservableList<String> participants;
     @Expose
     public String name;
     @Expose
     private String author;
-    @Expose
-    private final ObservableList<String> participants;
     @Expose
     private LocalDate start;
     @Expose
@@ -95,12 +92,11 @@ public class Carnet {
             str += "nom du auteur vide! ";
         }
         if (start == null) {
-                str += "date de debut vide! ";
+            str += "date de debut vide! ";
         }
-        if  (end == null) {
+        if (end == null) {
             str += "date de fin vide! ";
-        } else if (start != null && start.isAfter(end))
-        {
+        } else if (start != null && start.isAfter(end)) {
             str += "la date de fin est avant le debut! ";
         }
         if (filePath == null) {
@@ -116,6 +112,7 @@ public class Carnet {
 
         return gson.toJson(this);
     }
+
     public void save() {
         try {
             Files.write(filePath, asJSON().getBytes());

@@ -1,7 +1,7 @@
 package eu.telecomnancy.lab2e2455u;
 
-import eu.telecomnancy.lab2e2455u.view.*;
 import eu.telecomnancy.lab2e2455u.model.Carnet;
+import eu.telecomnancy.lab2e2455u.view.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,12 +12,15 @@ import java.util.Stack;
 
 public class Main extends Application {
 
-    private Stage primaryStage;
-
     private final Stack<Scene> scenes;
+    private Stage primaryStage;
 
     public Main() {
         scenes = new Stack<>();
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 
     public Stage getPrimaryStage() {
@@ -33,9 +36,6 @@ public class Main extends Application {
 
         show();
     }
-    public static void main(String[] args) {
-        launch();
-    }
 
     public Scene makeStartScreen() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ecran-debut.fxml"));
@@ -48,7 +48,8 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("createNotebookScreen.fxml"));
         fxmlLoader.setControllerFactory((ic) -> {
             if (ic.equals(CreateScreenButtons.class)) return new CreateScreenButtons(this, c);
-            else if (ic.equals(CreatorAndParticipantsComponent.class)) return new CreatorAndParticipantsComponent(this, c);
+            else if (ic.equals(CreatorAndParticipantsComponent.class))
+                return new CreatorAndParticipantsComponent(this, c);
             else if (ic.equals(DatesComponent.class)) return new DatesComponent(this, c);
             else if (ic.equals(TitleAndPathComponent.class)) return new TitleAndPathComponent(this, c);
             else return null;
@@ -56,7 +57,9 @@ public class Main extends Application {
         return new Scene(fxmlLoader.load());
     }
 
-    public Scene pop() {return scenes.pop();}
+    public Scene pop() {
+        return scenes.pop();
+    }
 
     public void push(Scene s) {
         scenes.push(s);

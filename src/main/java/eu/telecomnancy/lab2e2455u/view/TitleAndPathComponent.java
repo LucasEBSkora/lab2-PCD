@@ -36,7 +36,7 @@ public class TitleAndPathComponent {
         });
 
         pathField.textProperty().addListener((observable, oldValue, newValue) -> {
-            setFilePath(newValue  + ".json.cdv");
+            setFilePath(newValue + ".json.cdv");
         });
 
     }
