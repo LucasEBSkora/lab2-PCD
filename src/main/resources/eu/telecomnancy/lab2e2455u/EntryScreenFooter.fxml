@@ -6,6 +6,7 @@
 <HBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity"
       xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="eu.telecomnancy.lab2e2455u.view.EntryScreenFooter">
     <children>
+        <Button mnemonicParsing="false" onAction="#returnGlobal" text="Ecran global"/>
         <TextArea fx:id="description" prefHeight="200.0" prefWidth="200.0"/>
         <Button mnemonicParsing="false" onAction="#saveEntry" text="Garder"/>
     </children>

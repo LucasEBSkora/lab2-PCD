@@ -149,6 +149,7 @@ package view {
     class EntryScreenFooter {
         - initialize()
         - saveEntry()
+        - returnGlobal()
     }
     EntryScreenFooter --|> EntryScreenView
 

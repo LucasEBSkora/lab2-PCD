@@ -17,9 +17,15 @@ public class EntryScreenFooter extends EntryScreenView {
 
     @FXML
     void initialize() {
+        description.setText(tempEntry.description);
         description.textProperty().addListener((observable, oldValue, newValue) -> this.tempEntry.description = newValue);
     }
 
+    @FXML
+    void returnGlobal() {
+        main.pop();
+        main.show();
+    }
     @FXML
     void saveEntry() {
         entry.copy(tempEntry);
