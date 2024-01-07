@@ -6,7 +6,10 @@ module eu.telecomnancy.lab2e2455u {
 
     opens eu.telecomnancy.lab2e2455u to javafx.fxml;
     exports eu.telecomnancy.lab2e2455u;
+    exports eu.telecomnancy.lab2e2455u.model;
     exports eu.telecomnancy.lab2e2455u.view;
     opens eu.telecomnancy.lab2e2455u.view to javafx.fxml;
     opens eu.telecomnancy.lab2e2455u.model to com.google.gson;
+    exports eu.telecomnancy.lab2e2455u.utils;
+    opens eu.telecomnancy.lab2e2455u.utils to com.google.gson;
 }

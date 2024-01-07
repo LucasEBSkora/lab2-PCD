@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-public class CreatorAndParticipantsComponent {
-    private final Main main;
-
-    private final Carnet carnet;
+public class CreatorAndParticipantsComponent extends CarnetDeVoyageView {
 
     @FXML
     private TextField creatorField;
@@ -21,8 +18,7 @@ public class CreatorAndParticipantsComponent {
     private ListView<String> participantsList;
 
     public CreatorAndParticipantsComponent(Main main, Carnet carnet) {
-        this.main = main;
-        this.carnet = carnet;
+        super(main, carnet);
     }
 
     @FXML

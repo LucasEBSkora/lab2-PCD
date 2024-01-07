@@ -13,6 +13,7 @@ class Main {
     + Scene pop()
     + push(Scene s)
     + show()
+    + showWarning(String message)
 }
 Main "1" --> "0..*" Scene
 Main o--> Stage
@@ -40,7 +41,17 @@ package model {
         + ObservableList<String> getParticipants()
         + String problem()
         + String asJSON()
+        + {static} Carnet fromJSON(String json, Path path)
+        + {static} Carnet fromPath(Path path)
         + save()
+    }
+    Carnet "1" o--> "*" CarnetEntry
+    
+    class CarnetEntry {
+        + LocalDate date
+        + Path imagePath
+        + String title
+        + String description
     }
 
 }
@@ -61,27 +72,29 @@ package utils {
 }
 
 package view {
+    class CarnetDeVoyageView {
+    }
+    CarnetDeVoyageView --> Main
+    CarnetDeVoyageView --> Carnet
+
     class CreateScreenButtons {
         - saveNotebook()
     }
-    CreateScreenButtons --> Main
-    CreateScreenButtons --> Carnet
+    CreateScreenButtons --|> CarnetDeVoyageView
 
     class CreatorAndParticipantsComponent {
         - initialize()
         - addMember()
         - deleteMember()
     }
-    CreatorAndParticipantsComponent --> Main
-    CreatorAndParticipantsComponent --> Carnet
+    CreatorAndParticipantsComponent --|> CarnetDeVoyageView
 
     class DatesComponent {
         - initialize()
         - updateStartDate()
         - updateEndDate()
     }
-    DatesComponent --> Main
-    DatesComponent --> Carnet
+    DatesComponent --|> CarnetDeVoyageView
 
     class TitleAndPathComponent {
         + initialize()
@@ -89,8 +102,7 @@ package view {
         - formatPath(String path)
         - boolean setFilePath(String pathStr)
     }
-    TitleAndPathComponent --> Main
-    TitleAndPathComponent --> Carnet
+    TitleAndPathComponent --|> CarnetDeVoyageView
 
     class StartScreen {
         # ChangeToCreateScreen()
@@ -98,7 +110,22 @@ package view {
     }
     StartScreen --> Main
 
-    class GlobalScreen
+    class GlobalScreenHeader {
+        - initialize()
+    }
+    GlobalScreenHeader --|> CarnetDeVoyageView
+
+    class GlobalScreenFrames {
+        + initialize()
+    }
+    GlobalScreenFrames --|> CarnetDeVoyageView
+
+    class GlobalScreenFooter {
+        + initialize()
+        + String buildLabelText()
+        + openEditScreen()
+    }
+    GlobalScreenFooter --|> CarnetDeVoyageView
 }
 
 @enduml

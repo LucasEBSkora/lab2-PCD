@@ -5,6 +5,7 @@ import eu.telecomnancy.lab2e2455u.view.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -57,6 +58,17 @@ public class Main extends Application {
         return new Scene(fxmlLoader.load());
     }
 
+    public Scene makeGlobalScreen(Carnet carnet) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("globalScreen.fxml"));
+        fxmlLoader.setControllerFactory((ic) -> {
+            if (ic.equals(GlobalScreenHeader.class)) return new GlobalScreenHeader(this, carnet);
+            else if (ic.equals(GlobalScreenFrames.class)) return new GlobalScreenFrames(this, carnet);
+            else if (ic.equals(GlobalScreenFooter.class)) return new GlobalScreenFooter(this, carnet);
+            else return null;
+        });
+        return new Scene(fxmlLoader.load());
+    }
+
     public Scene pop() {
         return scenes.pop();
     }
@@ -70,7 +82,13 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public Scene makeGlobalScreen(Carnet carnet) {
-        return null;
+    public void showWarning(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(null);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        alert.showAndWait();
     }
+
 }

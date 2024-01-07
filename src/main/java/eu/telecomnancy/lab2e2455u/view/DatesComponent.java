@@ -9,10 +9,7 @@ import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 
-public class DatesComponent {
-    private final Main main;
-
-    private final Carnet carnet;
+public class DatesComponent extends CarnetDeVoyageView {
 
     @FXML
     private DatePicker startDate;
@@ -21,8 +18,7 @@ public class DatesComponent {
     private DatePicker endDate;
 
     public DatesComponent(Main main, Carnet carnet) {
-        this.main = main;
-        this.carnet = carnet;
+        super(main, carnet);
     }
 
     @FXML

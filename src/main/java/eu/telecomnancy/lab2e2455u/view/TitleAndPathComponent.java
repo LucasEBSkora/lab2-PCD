@@ -10,10 +10,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.nio.file.Path;
 
-public class TitleAndPathComponent {
-    private final Main main;
-
-    private final Carnet carnet;
+public class TitleAndPathComponent extends CarnetDeVoyageView {
 
     @FXML
     private TextField nameField;
@@ -25,8 +22,7 @@ public class TitleAndPathComponent {
     private Label errorLabel;
 
     public TitleAndPathComponent(Main main, Carnet carnet) {
-        this.main = main;
-        this.carnet = carnet;
+        super(main, carnet);
     }
 
     @FXML

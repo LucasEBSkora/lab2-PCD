@@ -1,33 +1,36 @@
 package eu.telecomnancy.lab2e2455u.model;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import eu.telecomnancy.lab2e2455u.utils.LocalDateAdapter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 
 public class Carnet {
-    @Expose
+
     private final ObservableList<String> participants;
-    @Expose
+
+    private final ObservableList<CarnetEntry> days;
+
     public String name;
-    @Expose
+
     private String author;
-    @Expose
+
     private LocalDate start;
-    @Expose
+
     private LocalDate end;
 
     private transient Path filePath;
 
     public Carnet() {
         participants = FXCollections.observableArrayList();
+        days = FXCollections.observableArrayList();
     }
 
     public String getName() {
@@ -113,6 +116,29 @@ public class Carnet {
         return gson.toJson(this);
     }
 
+    public static Carnet fromJSON(String json, Path path) {
+        final GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeHierarchyAdapter(LocalDate.class, new LocalDateAdapter());
+        builder.registerTypeAdapter(new TypeToken<ObservableList<String>>() {
+        }.getType(), new ListDeserializer());
+        builder.registerTypeAdapter(new TypeToken<ObservableList<CarnetEntry>>() {
+        }.getType(), new EntryDeserializer());
+        final Gson gson = builder.create();
+        Carnet carnet = gson.fromJson(json, Carnet.class);
+        carnet.setFilePath(path);
+        return carnet;
+    }
+
+    public static Carnet fromPath(Path path) {
+        String fileContent;
+        try {
+            fileContent = Files.readString(path);
+        } catch (IOException e) {
+            throw new RuntimeException("unable to read file " + path + "!");
+        }
+        return fromJSON(fileContent, path);
+    }
+
     public void save() {
         try {
             Files.write(filePath, asJSON().getBytes());
@@ -120,5 +146,24 @@ public class Carnet {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private static class ListDeserializer implements JsonDeserializer<ObservableList<String>> {
+        public ObservableList<String> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                throws JsonParseException {
+            ObservableList<String> list = FXCollections.observableArrayList();
+            list.addAll(new Gson().fromJson(json, String[].class));
+            return list;
+        }
+    }
+
+    private static class EntryDeserializer implements JsonDeserializer<ObservableList<CarnetEntry>> {
+        public ObservableList<CarnetEntry> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                throws JsonParseException {
+            ObservableList<CarnetEntry> list = FXCollections.observableArrayList();
+            Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+            list.addAll(gson.fromJson(json, CarnetEntry[].class));
+            return list;
+        }
     }
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      fx:controller="eu.telecomnancy.lab2e2455u.view.GlobalScreenFooter">
+    <children>
+        <Label fx:id="descriptionLabel" text="Label"/>
+        <ListView fx:id="participantsList" maxHeight="-Infinity" prefHeight="200.0" prefWidth="200.0"/>
+        <Button disable="true" mnemonicParsing="false" onAction="#openEditScreen" opacity="0.0" text="Éditer"/>
+    </children>
+</HBox>
