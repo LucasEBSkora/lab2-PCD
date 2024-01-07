@@ -1,6 +1,7 @@
 package eu.telecomnancy.lab2e2455u;
 
 import eu.telecomnancy.lab2e2455u.model.Carnet;
+import eu.telecomnancy.lab2e2455u.model.CarnetEntry;
 import eu.telecomnancy.lab2e2455u.view.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -64,6 +65,22 @@ public class Main extends Application {
             if (ic.equals(GlobalScreenHeader.class)) return new GlobalScreenHeader(this, carnet);
             else if (ic.equals(GlobalScreenFrames.class)) return new GlobalScreenFrames(this, carnet);
             else if (ic.equals(GlobalScreenFooter.class)) return new GlobalScreenFooter(this, carnet);
+            else return null;
+        });
+        return new Scene(fxmlLoader.load());
+    }
+
+    public Scene makeEntryScreen(Carnet carnet, CarnetEntry entry) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("entryScreen.fxml"));
+        CarnetEntry temporaryEntry = new CarnetEntry(entry.date);
+        temporaryEntry.copy(entry);
+        fxmlLoader.setControllerFactory((ic) -> {
+            if (ic.equals(EntryScreen.class)) return new EntryScreen(this, carnet, entry, temporaryEntry);
+            if (ic.equals(EntryScreenHeader.class)) return new EntryScreenHeader(this, carnet, entry, temporaryEntry);
+            else if (ic.equals(EntryScreenPhoto.class))
+                return new EntryScreenPhoto(this, carnet, entry, temporaryEntry);
+            else if (ic.equals(EntryScreenFooter.class))
+                return new EntryScreenFooter(this, carnet, entry, temporaryEntry);
             else return null;
         });
         return new Scene(fxmlLoader.load());

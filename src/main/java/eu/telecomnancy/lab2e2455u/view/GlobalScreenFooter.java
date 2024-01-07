@@ -31,6 +31,5 @@ public class GlobalScreenFooter extends CarnetDeVoyageView {
 
     @FXML
     private void openEditScreen() {
-
     }
 }

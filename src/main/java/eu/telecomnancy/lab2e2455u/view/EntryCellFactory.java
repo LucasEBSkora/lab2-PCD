@@ -40,7 +40,7 @@ public class EntryCellFactory implements Callback<ListView<CarnetEntry>, ListCel
                     ImageView img = null;
                     if (entry.imagePath != null) {
                         try {
-                            img = new ImageView(entry.imagePath.toAbsolutePath().toString());
+                            img = new ImageView(entry.imagePath);
                         } catch (IllegalArgumentException ignored) {
                             text += "(image dans " + entry.imagePath + " pas trouvé)";
                         }

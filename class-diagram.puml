@@ -49,9 +49,10 @@ package model {
     
     class CarnetEntry {
         + LocalDate date
-        + Path imagePath
+        + String imagePath
         + String title
         + String description
+        + void copy(CarnetEntry entry)
     }
 
 }
@@ -141,6 +142,34 @@ package view {
         + openEditScreen()
     }
     GlobalScreenFooter --|> CarnetDeVoyageView
+
+    EntryScreenView --|> CarnetDeVoyageView
+    EntryScreenView o--> CarnetEntry
+
+    class EntryScreenFooter {
+        - initialize()
+        - saveEntry()
+    }
+    EntryScreenFooter --|> EntryScreenView
+
+    class EntryScreen {
+    }
+    EntryScreen --|> EntryScreenView
+
+    class EntryScreenPhoto {
+        - initialize()
+        - chooseImage()
+        - setImage(String path)
+        - String getPathFromUser()
+    }
+    EntryScreenPhoto --|> EntryScreenView
+
+    class EntryScreenHeader {
+        - initialize()
+        - backOneDay()
+        - forwardOneDay()
+    }
+    EntryScreenHeader --|> EntryScreenView
 }
 
 @enduml

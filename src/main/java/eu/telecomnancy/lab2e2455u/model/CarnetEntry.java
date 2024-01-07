@@ -1,12 +1,11 @@
 package eu.telecomnancy.lab2e2455u.model;
 
-import java.nio.file.Path;
 import java.time.LocalDate;
 
 public class CarnetEntry {
     public LocalDate date;
 
-    public Path imagePath;
+    public String imagePath;
 
     public String title;
 
@@ -14,7 +13,12 @@ public class CarnetEntry {
 
     public CarnetEntry(LocalDate date) {
         this.date = date;
-        title = "";
-        description = "";
+    }
+
+    public void copy(CarnetEntry entry) {
+        if (!date.equals(entry.date)) return;
+        imagePath = entry.imagePath;
+        title = entry.title;
+        description = entry.description;
     }
 }
