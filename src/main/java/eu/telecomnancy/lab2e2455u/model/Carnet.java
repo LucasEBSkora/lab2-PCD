@@ -11,10 +11,15 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class Carnet {
 
     private final ObservableList<String> participants;
+
+    public ObservableList<CarnetEntry> getDays() {
+        return days;
+    }
 
     private final ObservableList<CarnetEntry> days;
 
@@ -55,6 +60,7 @@ public class Carnet {
 
     public void setStart(LocalDate start) {
         this.start = start;
+        checkDayArray();
     }
 
     public LocalDate getEnd() {
@@ -63,7 +69,58 @@ public class Carnet {
 
     public void setEnd(LocalDate end) {
         this.end = end;
+        checkDayArray();
     }
+
+    private void checkDayArray() {
+        if (start == null || end == null) {
+            return;
+        }
+        if (days.isEmpty()) {
+            for (LocalDate date = start; end.isAfter(date); date = date.plusDays(1)) {
+                days.add(new CarnetEntry(date));
+            }
+        }
+        LocalDate oldStartDate = days.get(0).date;
+        if (start.isBefore(oldStartDate)) {
+            int index = 0;
+            for (LocalDate date = start; oldStartDate.isAfter(date); date = date.plusDays(1)) {
+                days.add(index++, new CarnetEntry(date));
+            }
+        }
+
+        LocalDate oldEndDate = days.get(days.size() - 1).date;
+        if (end.isAfter(oldEndDate)) {
+            for (LocalDate date = oldEndDate; end.isAfter(date); date = date.plusDays(1)) {
+                days.add(new CarnetEntry(date));
+            }
+        }
+    }
+
+    public CarnetEntry getEntry(LocalDate date) {
+        if (isValidDate(date)) {
+            return null;
+        }
+        Optional<CarnetEntry> entry = days.stream().filter(e -> date.equals(e.date)).findAny();
+        return entry.orElse(null);
+    }
+
+
+    public void setEntry(CarnetEntry entry) {
+        if (isValidDate(entry.date)) {
+            CarnetEntry originalEntry = days.stream().filter(e -> entry.date == e.date).findAny().orElse(null);
+            if (originalEntry == null) {
+                return;
+            }
+            int index = days.indexOf(originalEntry);
+            days.set(index, entry);
+        }
+    }
+
+    private boolean isValidDate(LocalDate date) {
+        return date.isBefore(start) || date.isAfter(end);
+    }
+
 
     public Path getFilePath() {
         return filePath;

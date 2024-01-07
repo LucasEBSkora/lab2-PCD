@@ -27,13 +27,8 @@ public class TitleAndPathComponent extends CarnetDeVoyageView {
 
     @FXML
     void initialize() {
-        nameField.textProperty().addListener((observable, oldValue, newValue) -> {
-            this.carnet.setName(newValue);
-        });
-
-        pathField.textProperty().addListener((observable, oldValue, newValue) -> {
-            setFilePath(newValue + ".json.cdv");
-        });
+        nameField.textProperty().addListener((observable, oldValue, newValue) -> this.carnet.setName(newValue));
+        pathField.textProperty().addListener((observable, oldValue, newValue) -> setFilePath(newValue + ".json.cdv"));
 
     }
 

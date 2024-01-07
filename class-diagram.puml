@@ -120,6 +120,21 @@ package view {
     }
     GlobalScreenFrames --|> CarnetDeVoyageView
 
+    class "Callback<P, R>" as ListViewCallback {
+        R call(P param)
+    }
+    EntryCellFactory ..|> ListViewCallback : "P = ListView<CarnetEntry>, R = ListCell<CarnetEntry>"
+    class EntryCellFactory {
+
+        -  String path;
+        + EntryCellFactory()
+        - {static} void formatImage(ImageView img)
+        + ListCell<CarnetEntry> call(ListView<CarnetEntry> param)
+       }
+
+   EntryCellFactory *--> DDMMYYYYConverter
+   GlobalScreenFrames ..> EntryCellFactory
+
     class GlobalScreenFooter {
         + initialize()
         + String buildLabelText()

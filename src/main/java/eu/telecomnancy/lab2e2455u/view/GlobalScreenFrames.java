@@ -2,13 +2,14 @@ package eu.telecomnancy.lab2e2455u.view;
 
 import eu.telecomnancy.lab2e2455u.Main;
 import eu.telecomnancy.lab2e2455u.model.Carnet;
+import eu.telecomnancy.lab2e2455u.model.CarnetEntry;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
 public class GlobalScreenFrames extends CarnetDeVoyageView {
 
     @FXML
-    private ListView<String> thumbnailList;
+    private ListView<CarnetEntry> thumbnailList;
 
     public GlobalScreenFrames(Main main, Carnet carnet) {
         super(main, carnet);
@@ -16,7 +17,8 @@ public class GlobalScreenFrames extends CarnetDeVoyageView {
 
     @FXML
     void initialize() {
-        thumbnailList.setItems(carnet.getParticipants());
+        thumbnailList.setItems(carnet.getDays());
+        thumbnailList.setCellFactory(new EntryCellFactory());
     }
 
     @FXML

@@ -25,9 +25,7 @@ public class CreatorAndParticipantsComponent extends CarnetDeVoyageView {
     void initialize() {
         participantsList.setItems(carnet.getParticipants());
 
-        creatorField.textProperty().addListener((observable, oldValue, newValue) -> {
-            this.carnet.setAuthor(newValue);
-        });
+        creatorField.textProperty().addListener((observable, oldValue, newValue) -> this.carnet.setAuthor(newValue));
 
     }
 

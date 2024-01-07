@@ -26,7 +26,7 @@ public class GlobalScreenFooter extends CarnetDeVoyageView {
     }
 
     private String buildLabelText() {
-        return carnet.getStart().toString() + " - " + carnet.getEnd().toString() + "Auteur: " + carnet.getAuthor();
+        return carnet.getStart().toString() + " - " + carnet.getEnd().toString() + "\nAuteur: " + carnet.getAuthor();
     }
 
     @FXML

@@ -14,5 +14,7 @@ public class CarnetEntry {
 
     public CarnetEntry(LocalDate date) {
         this.date = date;
+        title = "";
+        description = "";
     }
 }
